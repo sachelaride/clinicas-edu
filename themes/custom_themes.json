@@ -1,0 +1,704 @@
+{
+  "custom_tema_personalizado_5": {
+    "name": "Tema Personalizado 5",
+    "primary_color": [
+      0.2,
+      0.6,
+      0.8,
+      1
+    ],
+    "secondary_color": [
+      0.9,
+      0.9,
+      0.9,
+      1
+    ],
+    "accent_color": [
+      0.1,
+      0.7,
+      0.5,
+      1
+    ],
+    "background_color": [
+      0.95,
+      0.95,
+      0.95,
+      1
+    ],
+    "text_color": [
+      0.1,
+      0.1,
+      0.1,
+      1
+    ],
+    "success_color": [
+      0.2,
+      0.8,
+      0.2,
+      1
+    ],
+    "warning_color": [
+      1.0,
+      0.6,
+      0.0,
+      1
+    ],
+    "error_color": [
+      0.8,
+      0.2,
+      0.2,
+      1
+    ],
+    "border_radius": 8,
+    "font_size": 14,
+    "icon_style": "material"
+  },
+  "custom_tema_personalizado_6": {
+    "name": "Tema Personalizado 6",
+    "primary_color": [
+      0.2,
+      0.6,
+      0.8,
+      1
+    ],
+    "secondary_color": [
+      0.9,
+      0.9,
+      0.9,
+      1
+    ],
+    "accent_color": [
+      0.1,
+      0.7,
+      0.5,
+      1
+    ],
+    "background_color": [
+      0.95,
+      0.95,
+      0.95,
+      1
+    ],
+    "text_color": [
+      0.1,
+      0.1,
+      0.1,
+      1
+    ],
+    "success_color": [
+      0.2,
+      0.8,
+      0.2,
+      1
+    ],
+    "warning_color": [
+      1.0,
+      0.6,
+      0.0,
+      1
+    ],
+    "error_color": [
+      0.8,
+      0.2,
+      0.2,
+      1
+    ],
+    "border_radius": 8,
+    "font_size": 14,
+    "icon_style": "material"
+  },
+  "custom_tema_personalizado_7": {
+    "name": "Tema Personalizado 7",
+    "primary_color": [
+      0.2,
+      0.6,
+      0.8,
+      1
+    ],
+    "secondary_color": [
+      0.9,
+      0.9,
+      0.9,
+      1
+    ],
+    "accent_color": [
+      0.1,
+      0.7,
+      0.5,
+      1
+    ],
+    "background_color": [
+      0.95,
+      0.95,
+      0.95,
+      1
+    ],
+    "text_color": [
+      0.1,
+      0.1,
+      0.1,
+      1
+    ],
+    "success_color": [
+      0.2,
+      0.8,
+      0.2,
+      1
+    ],
+    "warning_color": [
+      1.0,
+      0.6,
+      0.0,
+      1
+    ],
+    "error_color": [
+      0.8,
+      0.2,
+      0.2,
+      1
+    ],
+    "border_radius": 8,
+    "font_size": 14,
+    "icon_style": "material"
+  },
+  "custom_tema_personalizado_8": {
+    "name": "Tema Personalizado 8",
+    "primary_color": [
+      0.2,
+      0.6,
+      0.8,
+      1
+    ],
+    "secondary_color": [
+      0.9,
+      0.9,
+      0.9,
+      1
+    ],
+    "accent_color": [
+      0.1,
+      0.7,
+      0.5,
+      1
+    ],
+    "background_color": [
+      0.95,
+      0.95,
+      0.95,
+      1
+    ],
+    "text_color": [
+      0.1,
+      0.1,
+      0.1,
+      1
+    ],
+    "success_color": [
+      0.2,
+      0.8,
+      0.2,
+      1
+    ],
+    "warning_color": [
+      1.0,
+      0.6,
+      0.0,
+      1
+    ],
+    "error_color": [
+      0.8,
+      0.2,
+      0.2,
+      1
+    ],
+    "border_radius": 8,
+    "font_size": 14,
+    "icon_style": "medical"
+  },
+  "custom_tema_personalizado_9": {
+    "name": "Tema Personalizado 9",
+    "primary_color": [
+      0.2,
+      0.6,
+      0.8,
+      1
+    ],
+    "secondary_color": [
+      0.9,
+      0.9,
+      0.9,
+      1
+    ],
+    "accent_color": [
+      0.1,
+      0.7,
+      0.5,
+      1
+    ],
+    "background_color": [
+      0.95,
+      0.95,
+      0.95,
+      1
+    ],
+    "text_color": [
+      0.1,
+      0.1,
+      0.1,
+      1
+    ],
+    "success_color": [
+      0.2,
+      0.8,
+      0.2,
+      1
+    ],
+    "warning_color": [
+      1.0,
+      0.6,
+      0.0,
+      1
+    ],
+    "error_color": [
+      0.8,
+      0.2,
+      0.2,
+      1
+    ],
+    "border_radius": 8,
+    "font_size": 14,
+    "icon_style": "medical"
+  },
+  "custom_tema_personalizado_10": {
+    "name": "Tema Personalizado 10",
+    "primary_color": [
+      0.2,
+      0.6,
+      0.8,
+      1
+    ],
+    "secondary_color": [
+      0.9,
+      0.9,
+      0.9,
+      1
+    ],
+    "accent_color": [
+      0.1,
+      0.7,
+      0.5,
+      1
+    ],
+    "background_color": [
+      0.95,
+      0.95,
+      0.95,
+      1
+    ],
+    "text_color": [
+      0.1,
+      0.1,
+      0.1,
+      1
+    ],
+    "success_color": [
+      0.2,
+      0.8,
+      0.2,
+      1
+    ],
+    "warning_color": [
+      1.0,
+      0.6,
+      0.0,
+      1
+    ],
+    "error_color": [
+      0.8,
+      0.2,
+      0.2,
+      1
+    ],
+    "border_radius": 8,
+    "font_size": 14,
+    "icon_style": "medical"
+  },
+  "custom_tema_personalizado_11": {
+    "name": "Tema Personalizado 11",
+    "primary_color": [
+      0.2,
+      0.6,
+      0.8,
+      1
+    ],
+    "secondary_color": [
+      0.9,
+      0.9,
+      0.9,
+      1
+    ],
+    "accent_color": [
+      0.1,
+      0.7,
+      0.5,
+      1
+    ],
+    "background_color": [
+      0.95,
+      0.95,
+      0.95,
+      1
+    ],
+    "text_color": [
+      0.1,
+      0.1,
+      0.1,
+      1
+    ],
+    "success_color": [
+      0.2,
+      0.8,
+      0.2,
+      1
+    ],
+    "warning_color": [
+      1.0,
+      0.6,
+      0.0,
+      1
+    ],
+    "error_color": [
+      0.8,
+      0.2,
+      0.2,
+      1
+    ],
+    "border_radius": 8,
+    "font_size": 14,
+    "icon_style": "medical"
+  },
+  "custom_tema_personalizado_12": {
+    "name": "Tema Personalizado 12",
+    "primary_color": [
+      0.2,
+      0.6,
+      0.8,
+      1
+    ],
+    "secondary_color": [
+      0.9,
+      0.9,
+      0.9,
+      1
+    ],
+    "accent_color": [
+      0.1,
+      0.7,
+      0.5,
+      1
+    ],
+    "background_color": [
+      0.95,
+      0.95,
+      0.95,
+      1
+    ],
+    "text_color": [
+      0.1,
+      0.1,
+      0.1,
+      1
+    ],
+    "success_color": [
+      0.2,
+      0.8,
+      0.2,
+      1
+    ],
+    "warning_color": [
+      1.0,
+      0.6,
+      0.0,
+      1
+    ],
+    "error_color": [
+      0.8,
+      0.2,
+      0.2,
+      1
+    ],
+    "border_radius": 8,
+    "font_size": 14,
+    "icon_style": "medical"
+  },
+  "custom_tema_personalizado_13": {
+    "name": "Tema Personalizado 13",
+    "primary_color": [
+      0.2,
+      0.6,
+      0.8,
+      1
+    ],
+    "secondary_color": [
+      0.9,
+      0.9,
+      0.9,
+      1
+    ],
+    "accent_color": [
+      0.1,
+      0.7,
+      0.5,
+      1
+    ],
+    "background_color": [
+      0.95,
+      0.95,
+      0.95,
+      1
+    ],
+    "text_color": [
+      0.1,
+      0.1,
+      0.1,
+      1
+    ],
+    "success_color": [
+      0.2,
+      0.8,
+      0.2,
+      1
+    ],
+    "warning_color": [
+      1.0,
+      0.6,
+      0.0,
+      1
+    ],
+    "error_color": [
+      0.8,
+      0.2,
+      0.2,
+      1
+    ],
+    "border_radius": 8,
+    "font_size": 14,
+    "icon_style": "medical"
+  },
+  "custom_tema_personalizado_14": {
+    "name": "Tema Personalizado 14",
+    "primary_color": [
+      0.2,
+      0.6,
+      0.8,
+      1
+    ],
+    "secondary_color": [
+      0.9,
+      0.9,
+      0.9,
+      1
+    ],
+    "accent_color": [
+      0.1,
+      0.7,
+      0.5,
+      1
+    ],
+    "background_color": [
+      0.95,
+      0.95,
+      0.95,
+      1
+    ],
+    "text_color": [
+      0.1,
+      0.1,
+      0.1,
+      1
+    ],
+    "success_color": [
+      0.2,
+      0.8,
+      0.2,
+      1
+    ],
+    "warning_color": [
+      1.0,
+      0.6,
+      0.0,
+      1
+    ],
+    "error_color": [
+      0.8,
+      0.2,
+      0.2,
+      1
+    ],
+    "border_radius": 8,
+    "font_size": 14,
+    "icon_style": "medical"
+  },
+  "custom_tema_personalizado_15": {
+    "name": "Tema Personalizado 15",
+    "primary_color": [
+      0.2,
+      0.6,
+      0.8,
+      1
+    ],
+    "secondary_color": [
+      0.9,
+      0.9,
+      0.9,
+      1
+    ],
+    "accent_color": [
+      0.1,
+      0.7,
+      0.5,
+      1
+    ],
+    "background_color": [
+      0.95,
+      0.95,
+      0.95,
+      1
+    ],
+    "text_color": [
+      0.1,
+      0.1,
+      0.1,
+      1
+    ],
+    "success_color": [
+      0.2,
+      0.8,
+      0.2,
+      1
+    ],
+    "warning_color": [
+      1.0,
+      0.6,
+      0.0,
+      1
+    ],
+    "error_color": [
+      0.8,
+      0.2,
+      0.2,
+      1
+    ],
+    "border_radius": 8,
+    "font_size": 14,
+    "icon_style": "medical"
+  },
+  "custom_tema_personalizado_16": {
+    "name": "Tema Personalizado 16",
+    "primary_color": [
+      0.2,
+      0.6,
+      0.8,
+      1
+    ],
+    "secondary_color": [
+      0.9,
+      0.9,
+      0.9,
+      1
+    ],
+    "accent_color": [
+      0.1,
+      0.7,
+      0.5,
+      1
+    ],
+    "background_color": [
+      0.95,
+      0.95,
+      0.95,
+      1
+    ],
+    "text_color": [
+      0.1,
+      0.1,
+      0.1,
+      1
+    ],
+    "success_color": [
+      0.2,
+      0.8,
+      0.2,
+      1
+    ],
+    "warning_color": [
+      1.0,
+      0.6,
+      0.0,
+      1
+    ],
+    "error_color": [
+      0.8,
+      0.2,
+      0.2,
+      1
+    ],
+    "border_radius": 12,
+    "font_size": 16,
+    "icon_style": "medical"
+  },
+  "custom_tema_personalizado_17": {
+    "name": "Tema Personalizado 17",
+    "primary_color": [
+      0.2,
+      0.6,
+      0.8,
+      1
+    ],
+    "secondary_color": [
+      0.9,
+      0.9,
+      0.9,
+      1
+    ],
+    "accent_color": [
+      0.1,
+      0.7,
+      0.5,
+      1
+    ],
+    "background_color": [
+      0.95,
+      0.95,
+      0.95,
+      1
+    ],
+    "text_color": [
+      0.1,
+      0.1,
+      0.1,
+      1
+    ],
+    "success_color": [
+      0.2,
+      0.8,
+      0.2,
+      1
+    ],
+    "warning_color": [
+      1.0,
+      0.6,
+      0.0,
+      1
+    ],
+    "error_color": [
+      0.8,
+      0.2,
+      0.2,
+      1
+    ],
+    "border_radius": 8,
+    "font_size": 14,
+    "icon_style": "medical"
+  }
+}

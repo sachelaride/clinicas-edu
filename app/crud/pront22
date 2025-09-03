@@ -1,0 +1,189 @@
+from ..models import prontuarios as models, users as user_models, pacientes as paciente_models, tratamentos as tratamento_models, tratamento_servicos as tratamento_servico_models, servicos as servico_models
+from ..schemas import prontuarios as schemas
+from ..schemas.prontuarios import ProntuarioPDFData
+from ..schemas.pacientes import Paciente
+from ..schemas.tratamentos import Tratamento
+from ..schemas.servicos import Servico
+from ..schemas.users import User
+
+async def get_prontuario(db: AsyncSession, prontuario_id: uuid.UUID, tenant_id: uuid.UUID):
+    """
+    Busca um prontuário pelo seu ID e pelo ID do tenant para garantir o isolamento de dados.
+    """
+    # Constrói a query SQL usando o ORM do SQLAlchemy.
+    # select(models.Prontuario): Seleciona a tabela de prontuários.
+    # .filter(...): Adiciona as condições WHERE para buscar pelo id e tenant_id corretos.
+    query = select(models.Prontuario).filter(models.Prontuario.id == prontuario_id, models.Prontuario.tenant_id == tenant_id)
+    
+    # Executa a query no banco de dados de forma assíncrona.
+    result = await db.execute(query)
+    
+    # .scalars(): Pega apenas a primeira coluna de cada linha do resultado (neste caso, o objeto Prontuario).
+    # .first(): Retorna o primeiro resultado encontrado ou None se não houver nenhum.
+    return result.scalars().first()
+
+async def get_prontuarios(db: AsyncSession, tenant_id: uuid.UUID, skip: int = 0, limit: int = 100):
+    """
+    Busca uma lista paginada de prontuários para um tenant específico.
+    """
+    # Constrói a query, filtrando pelo tenant_id e aplicando paginação com offset (skip) e limit.
+    query = select(models.Prontuario).filter(models.Prontuario.tenant_id == tenant_id).offset(skip).limit(limit)
+    result = await db.execute(query)
+    
+    # .all(): Retorna todos os resultados da consulta como uma lista de objetos Prontuario.
+    return result.scalars().all()
+
+async def create_prontuario(db: AsyncSession, prontuario: schemas.ProntuarioCreate, tenant_id: uuid.UUID):
+    """
+    Cria uma nova entrada de prontuário no banco de dados.
+    """
+    # Cria uma instância do modelo SQLAlchemy a partir dos dados do schema Pydantic.
+    # `prontuario.model_dump()` converte o objeto Pydantic em um dicionário.
+    # `tenant_id` é adicionado explicitamente para garantir que o registro pertença ao tenant correto.
+    db_prontuario = models.Prontuario(
+        **prontuario.model_dump(),
+        tenant_id=tenant_id
+    )
+    
+    # Adiciona o novo objeto à sessão do SQLAlchemy, marcando-o para ser inserido no banco.
+    db.add(db_prontuario)
+    
+    # Confirma (persiste) a transação no banco de dados.
+    await db.commit()
+    
+    # Atualiza o objeto `db_prontuario` com os dados que foram efetivamente salvos no banco (ex: valores padrão, triggers).
+    await db.refresh(db_prontuario)
+
+    # Lógica de negócio adicional: notificar o orientador se um prontuário for criado como "pendente".
+    if db_prontuario.status_revisao == models.ReviewStatus.pendente and db_prontuario.orientador_id:
+        # Busca o e-mail do orientador no banco de dados.
+        orientador_result = await db.execute(select(user_models.SystemUser).filter_by(id=db_prontuario.orientador_id))
+        db_orientador = orientador_result.scalars().first()
+        
+        # Se o orientador for encontrado e tiver um e-mail, envia a notificação.
+        if db_orientador and db_orientador.email:
+            notification_service = NotificationService(db)
+            subject = f"Prontuário Pendente de Revisão: {db_prontuario.id}"
+            body = f"""Prezado(a) Orientador(a) {db_orientador.nome},
+
+Um novo prontuário para o paciente {db_prontuario.paciente_id} está pendente de sua revisão.
+ID do Prontuário: {db_prontuario.id}
+
+Por favor, acesse o sistema para revisar.
+
+Atenciosamente,
+Sistema de Gestão de Clínicas"""
+            await notification_service.send_email(tenant_id, db_orientador.email, subject, body)
+
+    # Retorna o objeto criado e atualizado.
+    return db_prontuario
+
+# Define a função para atualizar um prontuário existente.
+async def update_prontuario(db: AsyncSession, prontuario_id: uuid.UUID, prontuario_data: schemas.ProntuarioUpdate, tenant_id: uuid.UUID):
+    """
+    Atualiza os dados de um prontuário existente no banco de dados.
+    """
+    # Primeiro, busca o prontuário para garantir que ele existe e pertence ao tenant correto.
+    db_prontuario = await get_prontuario(db, prontuario_id=prontuario_id, tenant_id=tenant_id)
+    
+    # Se o prontuário for encontrado, prossegue com a atualização.
+    if db_prontuario:
+        # Converte o schema de atualização em um dicionário, excluindo campos que não foram enviados na requisição.
+        update_data = prontuario_data.model_dump(exclude_unset=True)
+        
+        # Itera sobre os dados de atualização e aplica cada um ao objeto do modelo SQLAlchemy.
+        for key, value in update_data.items():
+            setattr(db_prontuario, key, value)
+        
+        # Confirma e atualiza a transação.
+        await db.commit()
+        await db.refresh(db_prontuario)
+
+    # Retorna o objeto atualizado, ou None se não foi encontrado.
+    return db_prontuario
+
+# Define a função para deletar um prontuário.
+async def delete_prontuario(db: AsyncSession, prontuario_id: uuid.UUID, tenant_id: uuid.UUID):
+    """
+    Remove um prontuário do banco de dados.
+    """
+    # Busca o prontuário para garantir que ele existe e pertence ao tenant.
+    db_prontuario = await get_prontuario(db, prontuario_id=prontuario_id, tenant_id=tenant_id)
+    
+    # Se encontrado, marca para deleção e confirma a transação.
+    if db_prontuario:
+        await db.delete(db_prontuario)
+        await db.commit()
+        
+    return db_prontuario
+
+async def get_prontuario_data_for_pdf(db: AsyncSession, prontuario_id: uuid.UUID, tenant_id: uuid.UUID) -> Optional[ProntuarioPDFData]:
+    prontuario_query = select(models.Prontuario).filter_by(id=prontuario_id, tenant_id=tenant_id)
+    prontuario_result = await db.execute(prontuario_query)
+    prontuario = prontuario_result.scalars().first()
+
+    if not prontuario:
+        return None
+
+    paciente_query = select(paciente_models.Paciente).filter_by(id=prontuario.paciente_id, tenant_id=tenant_id)
+    paciente_result = await db.execute(paciente_query)
+    paciente = paciente_result.scalars().first()
+
+    if not paciente:
+        return None
+
+    tratamento = None
+    servicos_list = []
+    if prontuario.agendamento_id:
+        # Fetch related Agendamento to get the servico_id and profissional_id
+        agendamento_query = select(models.Agendamento).filter_by(id=prontuario.agendamento_id, tenant_id=tenant_id)
+        agendamento_result = await db.execute(agendamento_query)
+        agendamento = agendamento_result.scalars().first()
+
+        if agendamento and agendamento.servico_id:
+            # Fetch the Servico details
+            servico_query = select(servico_models.Servico).filter_by(id=agendamento.servico_id, tenant_id=tenant_id)
+            servico_result = await db.execute(servico_query)
+            servico = servico_result.scalars().first()
+            if servico:
+                servicos_list.append(Servico(id=servico.id, nome=servico.nome, valor=servico.valor, tenant_id=servico.tenant_id, created_at=servico.created_at, updated_at=servico.updated_at))
+
+        # If there's a linked treatment, fetch it and its services
+        if agendamento and agendamento.tratamento_id:
+            tratamento_query = select(tratamento_models.Tratamento).options(selectinload(tratamento_models.Tratamento.servicos)).filter_by(id=agendamento.tratamento_id, tenant_id=tenant_id)
+            tratamento_result = await db.execute(tratamento_query)
+            tratamento = tratamento_result.scalars().first()
+            if tratamento:
+                for ts in tratamento.servicos:
+                    servicos_list.append(Servico(id=ts.servico.id, nome=ts.servico.nome, valor=ts.servico.valor, tenant_id=ts.servico.tenant_id, created_at=ts.servico.created_at, updated_at=ts.servico.updated_at))
+
+    monitor = None
+    academico = None
+    gestor = None
+
+    # Fetch users based on roles or specific IDs if available in prontuario or related models
+    # This part needs more specific logic based on how monitor/academico/gestor are linked
+    # For now, let's assume they are linked via prontuario.orientador_id or agendamento.profissional_id
+    if prontuario.orientador_id:
+        orientador_user_query = select(user_models.SystemUser).filter_by(id=prontuario.orientador_id)
+        orientador_user_result = await db.execute(orientador_user_query)
+        orientador_user = orientador_user_result.scalars().first()
+        if orientador_user:
+            # Determine if orientador is a monitor, academic, or gestor based on their role
+            if orientador_user.role == user_models.UserRole.orientador:
+                monitor = User(id=orientador_user.id, nome=orientador_user.nome, username=orientador_user.username, email=orientador_user.email, role=orientador_user.role, ativo=orientador_user.ativo, created_at=orientador_user.created_at, updated_at=orientador_user.updated_at)
+            # Add more conditions if other roles can be monitor/academic/gestor
+
+    # You might need to fetch academic/gestor based on other logic or relationships
+    # For example, if agendamento.profissional_id is the academic or gestor
+    # For now, let's just pass the prontuario and paciente data
+
+    return ProntuarioPDFData(
+        prontuario=schemas.Prontuario.model_validate(prontuario),
+        paciente=Paciente.model_validate(paciente),
+        tratamento=Tratamento.model_validate(tratamento) if tratamento else None,
+        servicos=servicos_list,
+        monitor=monitor,
+        academico=academico,
+        gestor=gestor
+    )
