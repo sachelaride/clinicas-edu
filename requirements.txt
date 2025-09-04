@@ -1,0 +1,40 @@
+# Sistema de Clínicas Educacionais - Dependências
+
+# Framework de Interface
+kivy==2.3.1
+kivy-garden==0.1.5
+
+# Backend API
+fastapi==0.104.1
+uvicorn[standard]==0.24.0
+ldap3==2.9.1
+
+# Banco de Dados
+sqlalchemy==2.0.43
+asyncpg==0.30.0
+
+# HTTP Client
+httpx==0.28.1
+
+# Validação e Configuração
+pydantic==2.10.1
+pydantic-settings==2.10.1
+email-validator==2.3.0
+
+# Utilitários
+python-dotenv==1.1.1
+dnspython==2.7.0
+
+# Desenvolvimento (opcional)
+pytest==7.4.3
+black==23.11.0
+flake8==6.1.0
+pytest-cov==4.1.0
+
+# Documentação
+docutils==0.22
+pygments==2.19.2
+
+# Tipos de arquivo
+filetype==1.2.0
+

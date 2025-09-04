@@ -257,7 +257,7 @@ Builder.load_string("""
         TextInput:
             id: telefone_input
             hint_text: 'Telefone'
-            text: root.responsavel_data.get('telefone', '') if root.responsavel_.get('telefone') is not None else ''
+            text: root.responsavel_data.get('telefone', '') if root.responsavel_data.get('telefone') is not None else ''
             size_hint_y: None
             height: dp(35) # Reduced height
         TextInput:

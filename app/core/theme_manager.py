@@ -8,7 +8,7 @@ class ThemeManager:
     def __init__(self):
         self.themes_dir = Path("themes")
         self.themes_dir.mkdir(exist_ok=True)
-        self.current_theme = "default"
+        self.current_theme = "modern_medical"
         self.custom_colors = {}
         self.load_themes()
         self.apply_current_theme_to_api() # Apply theme on initialization
@@ -71,6 +71,48 @@ class ThemeManager:
                 "border_radius": 12,
                 "font_size": 16,
                 "icon_style": "modern"
+            },
+            "modern_medical": {
+                "name": "Médico Moderno",
+                "primary_color": [0.0, 0.47, 0.84, 1],
+                "secondary_color": [0.96, 0.97, 0.98, 1],
+                "accent_color": [0.0, 0.73, 0.83, 1],
+                "background_color": [1.0, 1.0, 1.0, 1],
+                "text_color": [0.13, 0.13, 0.13, 1],
+                "success_color": [0.0, 0.69, 0.31, 1],
+                "warning_color": [1.0, 0.76, 0.03, 1],
+                "error_color": [0.96, 0.26, 0.21, 1],
+                "border_radius": 12,
+                "font_size": 16,
+                "icon_style": "medical"
+            },
+            "dark_medical": {
+                "name": "Médico Escuro",
+                "primary_color": [0.0, 0.47, 0.84, 1],
+                "secondary_color": [0.18, 0.20, 0.25, 1],
+                "accent_color": [0.0, 0.73, 0.83, 1],
+                "background_color": [0.11, 0.11, 0.13, 1],
+                "text_color": [0.95, 0.95, 0.95, 1],
+                "success_color": [0.0, 0.69, 0.31, 1],
+                "warning_color": [1.0, 0.76, 0.03, 1],
+                "error_color": [0.96, 0.26, 0.21, 1],
+                "border_radius": 12,
+                "font_size": 16,
+                "icon_style": "medical"
+            },
+            "soft_green": {
+                "name": "Verde Suave",
+                "primary_color": [0.0, 0.59, 0.53, 1],
+                "secondary_color": [0.94, 0.97, 0.96, 1],
+                "accent_color": [0.0, 0.77, 0.64, 1],
+                "background_color": [0.99, 1.0, 0.99, 1],
+                "text_color": [0.13, 0.13, 0.13, 1],
+                "success_color": [0.0, 0.69, 0.31, 1],
+                "warning_color": [1.0, 0.76, 0.03, 1],
+                "error_color": [0.96, 0.26, 0.21, 1],
+                "border_radius": 10,
+                "font_size": 16,
+                "icon_style": "medical"
             }
         }
         
@@ -80,6 +122,9 @@ class ThemeManager:
     def load_custom_themes(self):
         """Carrega temas customizados salvos"""
         custom_file = self.themes_dir / "custom_themes.json"
+        modern_file = self.themes_dir / "modern_medical_theme.json"
+        
+        # Carrega temas customizados antigos
         if custom_file.exists():
             try:
                 with open(custom_file, 'r', encoding='utf-8') as f:
@@ -87,12 +132,21 @@ class ThemeManager:
                     self.available_themes.update(custom_themes)
             except Exception as e:
                 print(f"Erro ao carregar temas customizados: {e}")
+        
+        # Carrega novos temas médicos modernos
+        if modern_file.exists():
+            try:
+                with open(modern_file, 'r', encoding='utf-8') as f:
+                    modern_themes = json.load(f)
+                    self.available_themes.update(modern_themes)
+            except Exception as e:
+                print(f"Erro ao carregar temas médicos modernos: {e}")
     
     def save_custom_themes(self):
         """Salva temas customizados"""
         custom_file = self.themes_dir / "custom_themes.json"
         custom_themes = {k: v for k, v in self.available_themes.items() 
-                        if k not in ["default", "dark", "medical", "modern"]}
+                        if k not in ["default", "dark", "medical", "modern", "modern_medical", "dark_medical", "soft_green"]}
         
         try:
             with open(custom_file, 'w', encoding='utf-8') as f:
@@ -102,7 +156,7 @@ class ThemeManager:
     
     def get_current_theme(self) -> Dict[str, Any]:
         """Retorna o tema atual"""
-        return self.available_themes.get(self.current_theme, self.available_themes["default"])
+        return self.available_themes.get(self.current_theme, self.available_themes["modern_medical"])
     
     def set_theme(self, theme_name: str):
         """Define o tema atual e aplica suas propriedades"""
@@ -126,8 +180,7 @@ class ThemeManager:
         api.global_border_radius = current_theme_data.get('border_radius', api.global_border_radius)
         api.global_font_size = current_theme_data.get('font_size', api.global_font_size)
         api.global_icon_style = current_theme_data.get('icon_style', api.global_icon_style)
-        print(f"[DEBUG] Theme applied. Primary Color: {api.global_primary_color}, Font Size: {api.global_font_size}, Icon Style: {api.global_icon_style}")
-        print(f"[DEBUG] Theme applied. Primary Color: {api.global_primary_color}, Font Size: {api.global_font_size}, Icon Style: {api.global_icon_style}")
+        print(f"[DEBUG] Tema aplicado: {self.current_theme}. Cor primária: {api.global_primary_color}, Tamanho da fonte: {api.global_font_size}")
 
     def create_custom_theme(self, name: str, colors: Dict[str, List[float]], 
                            border_radius: int = 8, font_size: int = 14, 
