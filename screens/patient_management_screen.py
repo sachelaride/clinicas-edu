@@ -65,14 +65,6 @@ class PhoneMaskedInput(TextInput):
             super().insert_text(substring, from_undo=from_undo)
 
 from kivy.uix.filechooser import FileChooserListView
-import pywintypes
-
-class SafeFileChooserListView(FileChooserListView):
-    def is_hidden(self, fn):
-        try:
-            return super().is_hidden(fn)
-        except (OSError, pywintypes.error):
-            return True
 
 # KV Language String
 Builder.load_string("""
@@ -223,7 +215,7 @@ Builder.load_string("""
     BoxLayout:
         orientation: 'vertical'
 
-        SafeFileChooserListView:
+        FileChooserListView:
             id: filechooser
 
         BoxLayout:

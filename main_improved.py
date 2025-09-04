@@ -40,7 +40,7 @@ class ClinicApp(App):
         Window.maximize() # Maximize the window
         
         # Apply the default theme
-        theme_manager.set_theme('modern_medical')
+        theme_manager.set_theme('dark_medical')
         
         sm = ScreenManager()
         
